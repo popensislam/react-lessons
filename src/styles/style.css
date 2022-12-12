@@ -1,0 +1,31 @@
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: calc(100vh - 50px);
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.wrapper {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 250px;
+  height: 250px;
+  background-color: #fff;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
