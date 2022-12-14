@@ -12,7 +12,7 @@
 .task-item {
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 600px;
   border: 1px solid black;
   padding: 5px;
 }
@@ -26,6 +26,17 @@
   background-color: #fff;
   border: 1px solid black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.wrapperInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  margin-top: 10px;
 }

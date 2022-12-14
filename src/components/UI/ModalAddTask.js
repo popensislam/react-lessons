@@ -1,33 +1,22 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Button from "./Button";
+import Input from "./Input";
 
-const ModalAddTask = ({ addTask, hide, value, setValue, editTask }) => {
+const ModalAddTask = ({ isAdd, handleOnChange, addTask, hide, value, setValue, editTask }) => {
+
   return (
     <div className="wrapper">
-      {value.title ? (
+      <div className="wrapperInput">
         <input
+          className="input"
+          name="title"
           value={value.title}
-          onChange={(e) => setValue({ ...value, title: e.target.value })}
+          onChange={(e) => handleOnChange(e)}
         />
-      ) : (
-        <input value={value} onChange={(e) => setValue(e.target.value)} />
-      )}
+        <Input value={value} handleOnChange={handleOnChange}/>
+      </div>
 
-      <button
-        onClick={() => {
-          if (!value) {
-            alert("Пустая строка");
-            return;
-          }
-          hide();
-          if (value.title) {
-            editTask(value);
-          } else {
-            addTask({ id: Date.now(), title: value, completed: false });
-          }
-        }}
-      >
-        {value.title ? "Обновить" : "Добавить"}
-      </button>
+      <Button hide={hide} editTask={editTask} addTask={addTask} value={value} isAdd={isAdd} />
     </div>
   );
 };
