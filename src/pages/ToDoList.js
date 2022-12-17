@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Context } from "../App";
+import Pagination from "../components/Pagination";
+import Search from "../components/Search";
+import SortBy from "../components/SortBy";
+import TasksList from "../components/TasksList";
 import ModalAddTask from "../components/UI/ModalAddTask";
 
 const tasks = [
@@ -7,6 +12,7 @@ const tasks = [
 ];
 
 const ToDoList = () => {
+
   const [state, setState] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -82,6 +88,8 @@ const ToDoList = () => {
 
   return (
     <div className="flex">
+      <Search/>
+      <SortBy/>
       <button onClick={() => setShow(true)}>Add new task</button>
       {show && (
         <ModalAddTask
@@ -95,24 +103,10 @@ const ToDoList = () => {
         />
       )}
       {state.length === 0 && (<h1>Loading...</h1>)}
-      {state?.map((task) => (
-        <div key={task.id} className="task-item">
-          <h3 onClick={() => handleOpen(task)}>Заголовок: {task.title}</h3>
-          <h3 onClick={() => handleOpen(task)}>Описание: {task.desc}</h3>
-          <button
-            onClick={() => handleDone(task.id)}
-            style={task.completed ? { background: "green" } : { background: "red" }}
-          >
-            done
-          </button>
-          <button
-            onClick={() => removeTask(task)}
-            style={{ background: "red" }}
-          >
-            Deleted
-          </button>
-        </div>
-      ))}
+      <TasksList 
+        handleOpen={handleOpen} handleDone={handleDone} removeTask={removeTask} state={state}
+      />
+      <Pagination/>
     </div>
   );
 };
