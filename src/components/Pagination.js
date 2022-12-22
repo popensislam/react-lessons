@@ -1,20 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../App";
 
 
-const Pagination = () => {
+const Pagination = React.memo(({ state }) => {
   const {page, limit, setOffset, offset, setPage} = useContext(Context)
 
   const [allPages, setAllPages] = useState(0)
-
   
   useEffect(() => {
     const stateStr = localStorage.getItem('tasks')
-    const state = JSON.parse(stateStr)
-    const allPages = Math.round(state.length / limit)
+    const stateLen = JSON.parse(stateStr)
+
+    const allPages = Math.ceil(state.length / limit)
+    console.log(stateLen.length, limit)
 
     setAllPages(prev => allPages)
-  }, [limit, offset])
+  }, [limit, offset, state])
 
   const handleNext = () => {
     if (page !== allPages) {
@@ -36,6 +37,6 @@ const Pagination = () => {
       <button onClick={handleNext}>next</button>
     </div>
    );
-}
+})
  
 export default Pagination;

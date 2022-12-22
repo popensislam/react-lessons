@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Context } from "../App";
 import Pagination from "../components/Pagination";
 import Search from "../components/Search";
 import SortBy from "../components/SortBy";
 import TasksList from "../components/TasksList";
+import Timer from "../components/Timer";
 import ModalAddTask from "../components/UI/ModalAddTask";
 
 const tasks = [
@@ -106,7 +107,8 @@ const ToDoList = () => {
       <TasksList 
         handleOpen={handleOpen} handleDone={handleDone} removeTask={removeTask} state={state}
       />
-      <Pagination/>
+      <Pagination state={state} />
+      <Timer />
     </div>
   );
 };

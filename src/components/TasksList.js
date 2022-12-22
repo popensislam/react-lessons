@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../App";
+import { useFilter, useSort, useSum } from "../hooks/hooks";
 import TaskItem from "./TaskItem";
 
 const FilterByTitle = (item, search) => {
@@ -12,15 +13,16 @@ const TasksList = ({handleOpen, handleDone, removeTask, state}) => {
 
   const {search, sortBy, limit, offset} = useContext(Context)
 
+  const newData = useFilter(state, search)
+  const sortData = useSort(state, search)
+
   const getSearch = () => {
    switch (sortBy) {
     case 'id': {
-      const newState = state.sort((a, b) => a.id - b.id)
-      return newState.filter((item) => FilterByTitle(item, search))
+      return newData
     }
     case 'letter': {
-      const newStateByTitle = state.sort((a, b) => a.title.localeCompare(b.title))
-      return newStateByTitle.filter((item) => FilterByTitle(item, search))
+      return sortData
     }
     default: 
         return state.filter((item) => FilterByTitle(item, search))
