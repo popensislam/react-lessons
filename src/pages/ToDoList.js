@@ -108,7 +108,6 @@ const ToDoList = () => {
         handleOpen={handleOpen} handleDone={handleDone} removeTask={removeTask} state={state}
       />
       <Pagination state={state} />
-      <Timer />
     </div>
   );
 };

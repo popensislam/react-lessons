@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import FetchPage from "./pages/FetchPage";
 import ToDoList from "./pages/ToDoList";
 import "./styles/style.css";
 
@@ -17,7 +18,8 @@ function App() {
   return (
     <div className="App">
     <Context.Provider value={{search, setSearch, sortBy, setSortBy, offset, setOffset, page, setPage, limit, setLimit}}>
-      <ToDoList />
+      {/* <ToDoList /> */}
+      <FetchPage/>
     </Context.Provider>
     </div>
   );
