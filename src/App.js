@@ -1,26 +1,54 @@
-import React, { createContext, useState } from "react";
-import FetchPage from "./pages/FetchPage";
-import ToDoList from "./pages/ToDoList";
-import "./styles/style.css";
-
-export const Context = createContext()
+import React, { useEffect, useState } from "react";
+import PokemonCard from "./components/PokemonCard";
+import PokemonList from "./components/PokemonList";
+import { fetchAllPokemon, fetchPokemonByName } from "./pokemonService/pokemonService";
+import "./style.css";
 
 function App() {
+  const [pikachu, setPikachu] = useState({})
+  const [value, setValue] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  const [search, setSearch] = useState('')
-  const [sortBy, setSortBy] = useState('id')
+  const searchPokemon = (e) => {
+    e.preventDefault()
+    if (!value) return
 
-  const [page, setPage] = useState(1)
-  const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(2)
+    setLoading(true)
 
+    setTimeout(async () => {
+      fetchPokemonByName(value)
+        .then((data) => setPikachu(data))
+        .catch((err) => setError(err))
+      setLoading(false)
+    }, 1000)
+  }
 
   return (
     <div className="App">
-    <Context.Provider value={{search, setSearch, sortBy, setSortBy, offset, setOffset, page, setPage, limit, setLimit}}>
-      {/* <ToDoList /> */}
-      <FetchPage/>
-    </Context.Provider>
+    <div className='container'>
+      <form onSubmit={(e) => {
+        searchPokemon(e)
+      }}>
+        <input className='searchInput' value={value} onChange={e => setValue(e.target.value)} placeholder="Search pokemon"/>
+      </form>
+      {pikachu.name && (
+        <PokemonCard pikachu={pikachu}/>
+      )}
+      {loading && (
+        <h1 className="loader">Loading...</h1>
+      )}
+      {error?.stack && (
+        <h1 className="loader">{
+          error.stack.length > 30 
+          ?
+            error.stack.slice(0, 30)
+          :
+            error.stack
+        }</h1>
+      )}
+      <PokemonList/>
+    </div>
     </div>
   );
 }

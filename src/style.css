@@ -1,0 +1,151 @@
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false; 
+}
+
+:root {
+  --card-height: 65vh;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+
+body {
+  min-height: 100vh;
+  background: #02071b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #191c29;
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 3px;
+  position: relative;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
+  font-family: cursive;
+}
+
+.card:hover {
+  color: rgb(88 199 250 100%);
+  transition: color 1s;
+}
+
+.card::before {
+  content: '';
+  width: 104%;
+  height: 102%;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    var(--rotate),
+    #eca644, #e33ce0 43%, #c20054 
+  );
+  position: absolute;
+  z-index: -1;
+  top: -1%;
+  left: -2%;
+  animation: spin 2.5s linear infinite;
+}
+
+.card::after {
+  position: absolute;
+  content: '';
+  top: calc(var(--card-height) / 6);
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(
+    var(--rotate),
+    #eca644, #e33ce0 43%, #c20054,
+    );
+  opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite; 
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.flexItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+.flexItem span {
+  font-size: 18px;
+}
+
+.pikachuName {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.pokemonImg {
+  width: 150px;
+  height: 150px;
+}
+
+.searchInput {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 34px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.loader {
+  color: #fff;
+}
+
+.listWrapper {
+  margin-top: 50px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.pikachuPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 50px;
+}
+.pikachuPagination span {
+  color: #fff;
+}
